@@ -6,15 +6,6 @@ import (
 	"os"
 )
 
-var kosCmd = &cobra.Command{
-	Use:   "kos",
-	Short: "kkk object storage",
-	Long:  "This command running object storage server",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run kos.")
-	},
-}
-
 func main() {
 	rootCmd := &cobra.Command{
 		Use:  "root",
