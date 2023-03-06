@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"fmt"
@@ -6,8 +6,23 @@ import (
 	"kos/pkg/api"
 )
 
-var kosCmd = &cobra.Command{
-	Use:   "kos",
+func Main() error {
+	rootCmd := &cobra.Command{
+		Use:  "kos",
+		Args: cobra.ExactArgs(2),
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("run kos")
+		},
+	}
+	rootCmd.AddCommand(serverCmd)
+	if err := rootCmd.Execute(); err != nil {
+		return err
+	}
+	return nil
+}
+
+var serverCmd = &cobra.Command{
+	Use:   "server",
 	Short: "kkk object storage",
 	Long:  "This command running object storage server",
 	Run:   serverMain,
