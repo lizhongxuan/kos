@@ -90,8 +90,17 @@ var notSupportedDelimiter = errors.New("not supported delimiter")
 
 type DefaultObjectStorage struct{}
 
+var _ ObjectStorage = &DefaultObjectStorage{}
+
 func (s DefaultObjectStorage) Create() error {
-	return nil
+	return notSupported
+}
+func (s *DefaultObjectStorage) Delete(key string) error {
+	return notSupported
+}
+
+func (s *DefaultObjectStorage) String() string {
+	return ""
 }
 
 func (s DefaultObjectStorage) Head(key string) (Object, error) {
@@ -122,6 +131,14 @@ func (s DefaultObjectStorage) List(prefix, marker, delimiter string, limit int64
 
 func (s DefaultObjectStorage) ListAll(prefix, marker string) (<-chan Object, error) {
 	return nil, notSupported
+}
+
+func (s *DefaultObjectStorage) Get(key string, off, limit int64) (io.ReadCloser, error) {
+	return nil, notSupported
+}
+
+func (u *DefaultObjectStorage) Put(key string, body io.Reader) error {
+	return notSupported
 }
 
 type Creator func(bucket, accessKey, secretKey, token string) (ObjectStorage, error)
