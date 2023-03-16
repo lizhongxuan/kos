@@ -3,7 +3,11 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"kos/pkg/api"
+	"kos/command"
+)
+
+var (
+	s3Options S3Options
 )
 
 func Main() error {
@@ -30,5 +34,7 @@ var serverCmd = &cobra.Command{
 
 func serverMain(cmd *cobra.Command, args []string) {
 	fmt.Println("run kos.")
-	api.RegisterApi(":9090")
+	s3Options := command.NewS3()
+	s3Options.startS3Server()
+	//api.RegisterApi(":9090")
 }

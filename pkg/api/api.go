@@ -7,7 +7,9 @@ import (
 
 func RegisterApi(addr string) {
 	router := gin.Default()
-	router.GET("/objects/get", service.GetObject)
-	router.PUT("/objects/put", service.PutObject)
+	bucketRouter := router.Group("/:bucket")
+	bucketRouter.GET("/:objects/get", service.GetObject)
+	bucketRouter.PUT("/:objects/put", service.PutObject)
+
 	router.Run(addr)
 }
